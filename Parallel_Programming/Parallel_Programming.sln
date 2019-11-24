@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskCreation", "TaskCreatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskCancellation", "..\TaskCancellation\TaskCancellation.csproj", "{4093E4E8-F799-430C-8074-0DCDDA892E8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskWaiting", "..\TaskWaiting\TaskWaiting.csproj", "{94FE56EC-C2F8-4EA4-A326-96F38327897D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4093E4E8-F799-430C-8074-0DCDDA892E8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4093E4E8-F799-430C-8074-0DCDDA892E8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4093E4E8-F799-430C-8074-0DCDDA892E8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94FE56EC-C2F8-4EA4-A326-96F38327897D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94FE56EC-C2F8-4EA4-A326-96F38327897D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94FE56EC-C2F8-4EA4-A326-96F38327897D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94FE56EC-C2F8-4EA4-A326-96F38327897D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
