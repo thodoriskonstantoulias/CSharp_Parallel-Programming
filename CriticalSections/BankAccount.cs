@@ -47,5 +47,12 @@ namespace CriticalSections
         {
             balance -= amount;
         }
+
+        //Method for Mutex example
+        public void Transfer(BankAccount where, int amount)
+        {
+            Balance -= amount;
+            where.Balance += amount;
+        }
     }
 }
