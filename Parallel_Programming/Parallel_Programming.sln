@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskCancellation", "..\Task
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskWaiting", "..\TaskWaiting\TaskWaiting.csproj", "{94FE56EC-C2F8-4EA4-A326-96F38327897D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CriticalSections", "..\CriticalSections\CriticalSections.csproj", "{6474A3E1-07B9-41B7-933A-457287ADDD7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{94FE56EC-C2F8-4EA4-A326-96F38327897D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94FE56EC-C2F8-4EA4-A326-96F38327897D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94FE56EC-C2F8-4EA4-A326-96F38327897D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6474A3E1-07B9-41B7-933A-457287ADDD7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6474A3E1-07B9-41B7-933A-457287ADDD7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6474A3E1-07B9-41B7-933A-457287ADDD7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6474A3E1-07B9-41B7-933A-457287ADDD7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
