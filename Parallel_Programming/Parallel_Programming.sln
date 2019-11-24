@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskCreation", "TaskCreation.csproj", "{AD7C9A50-BE75-44ED-B764-D626738A6F19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskCreation", "TaskCreation.csproj", "{AD7C9A50-BE75-44ED-B764-D626738A6F19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskCancellation", "..\TaskCancellation\TaskCancellation.csproj", "{4093E4E8-F799-430C-8074-0DCDDA892E8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskCancellation", "..\TaskCancellation\TaskCancellation.csproj", "{4093E4E8-F799-430C-8074-0DCDDA892E8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskWaiting", "..\TaskWaiting\TaskWaiting.csproj", "{94FE56EC-C2F8-4EA4-A326-96F38327897D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskWaiting", "..\TaskWaiting\TaskWaiting.csproj", "{94FE56EC-C2F8-4EA4-A326-96F38327897D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CriticalSections", "..\CriticalSections\CriticalSections.csproj", "{6474A3E1-07B9-41B7-933A-457287ADDD7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CriticalSections", "..\CriticalSections\CriticalSections.csproj", "{6474A3E1-07B9-41B7-933A-457287ADDD7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcurrentCollections", "..\ConcurrentCollections\ConcurrentCollections.csproj", "{7D7DF2D4-08B5-415A-8570-9DC19E3CAC83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{6474A3E1-07B9-41B7-933A-457287ADDD7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6474A3E1-07B9-41B7-933A-457287ADDD7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6474A3E1-07B9-41B7-933A-457287ADDD7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D7DF2D4-08B5-415A-8570-9DC19E3CAC83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D7DF2D4-08B5-415A-8570-9DC19E3CAC83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D7DF2D4-08B5-415A-8570-9DC19E3CAC83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D7DF2D4-08B5-415A-8570-9DC19E3CAC83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
