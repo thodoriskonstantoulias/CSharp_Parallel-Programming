@@ -14,71 +14,113 @@ namespace CriticalSections
         //Another way is through SpinLock
         //We avoid Lock Recursion because it is dangerous 
         //Another way to sync data is Mutex
+        //Finally we introduce Reader-Writer locks
 
+        static ReaderWriterLockSlim padlock = new ReaderWriterLockSlim();
+        static Random random = new Random();
         static void Main(string[] args)
         {
             var tasks = new List<Task>();
             var ba = new BankAccount();
             var ba2 = new BankAccount();
+            int x = 0;
 
-            //Mutex example
-            Mutex mutex = new Mutex();
-            Mutex mutex2 = new Mutex();
-
-            for (int i = 0; i < 10; i++)
+            //Reader-Writer Locks
+            tasks.Add(Task.Factory.StartNew(() => 
             {
-                tasks.Add(Task.Factory.StartNew(() =>
-                {
-                    for (int i = 0; i < 1000; i++)
-                    {
-                        bool haveLock = mutex.WaitOne();
-                        try
-                        {
-                            ba.Deposit(1);
-                        }
-                        finally
-                        {
-                            if (haveLock) mutex.ReleaseMutex();
-                        }
-                    }
-                }));
-                tasks.Add(Task.Factory.StartNew(() =>
-                {
-                    for (int i = 0; i < 1000; i++)
-                    {
-                        bool haveLock = mutex2.WaitOne();
-                        try
-                        {
-                            ba2.Deposit(1);
-                            //ba.Withdraw(100);
-                        }
-                        finally
-                        {
-                            if (haveLock) mutex2.ReleaseMutex();
-                        }                        
-                    }
-                }));
-                tasks.Add(Task.Factory.StartNew(() =>
-                {
-                    for (int i = 0; i < 1000; i++)
-                    {
-                        bool haveLock = WaitHandle.WaitAll(new[] { mutex, mutex2 });
-                        try
-                        {
-                            ba.Transfer(ba2, 1);
-                        }
-                        finally
-                        {
-                            if (haveLock) 
-                            {
-                                mutex.ReleaseMutex();
-                                mutex2.ReleaseMutex();
-                            } 
-                        }
-                    }
-                }));
+                padlock.EnterReadLock();
+
+                Console.WriteLine($"Entered read lock x = {x}");
+                Thread.Sleep(5000);
+
+                padlock.ExitReadLock();
+                Console.WriteLine($"Exited read lock x = {x}");
+            }));
+            try
+            {
+                Task.WaitAll(tasks.ToArray());
             }
-            //SpinLock
+            catch (AggregateException ae)
+            {
+                ae.Handle(e =>
+                {
+                    Console.WriteLine(e);
+                    return true;
+                });
+            }
+            while (true)
+            {
+                Console.ReadKey();
+                padlock.EnterWriteLock();
+                Console.WriteLine("Write lock acquired");
+
+                int newValue = random.Next(10);
+                x = newValue;
+                Console.WriteLine($"x = {x}");
+
+                padlock.ExitWriteLock();
+                Console.WriteLine("Write lock released");
+            }
+            //-----------------------------------------------------------------------------
+            //Mutex example
+            //Mutex mutex = new Mutex();
+            //Mutex mutex2 = new Mutex();
+
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    tasks.Add(Task.Factory.StartNew(() =>
+            //    {
+            //        for (int i = 0; i < 1000; i++)
+            //        {
+            //            bool haveLock = mutex.WaitOne();
+            //            try
+            //            {
+            //                ba.Deposit(1);
+            //            }
+            //            finally
+            //            {
+            //                if (haveLock) mutex.ReleaseMutex();
+            //            }
+            //        }
+            //    }));
+            //    tasks.Add(Task.Factory.StartNew(() =>
+            //    {
+            //        for (int i = 0; i < 1000; i++)
+            //        {
+            //            bool haveLock = mutex2.WaitOne();
+            //            try
+            //            {
+            //                ba2.Deposit(1);
+            //                //ba.Withdraw(100);
+            //            }
+            //            finally
+            //            {
+            //                if (haveLock) mutex2.ReleaseMutex();
+            //            }                        
+            //        }
+            //    }));
+            //    tasks.Add(Task.Factory.StartNew(() =>
+            //    {
+            //        for (int i = 0; i < 1000; i++)
+            //        {
+            //            bool haveLock = WaitHandle.WaitAll(new[] { mutex, mutex2 });
+            //            try
+            //            {
+            //                ba.Transfer(ba2, 1);
+            //            }
+            //            finally
+            //            {
+            //                if (haveLock) 
+            //                {
+            //                    mutex.ReleaseMutex();
+            //                    mutex2.ReleaseMutex();
+            //                } 
+            //            }
+            //        }
+            //    }));
+            //}
+            //-----------------------------------------------------------------------------
+            //
             //Lock and Interlocked example
             //for (int i = 0; i < 10; i++)
             //{
@@ -97,6 +139,7 @@ namespace CriticalSections
             //        }
             //    }));
             //}
+            //-----------------------------------------------------------------------------
             //SpinLock
             //var spinLock = new SpinLock();
 
@@ -119,38 +162,38 @@ namespace CriticalSections
             //                    spinLock.Exit();
             //            }
 
-                        //ba.Deposit(100);
-                //    }
-                //}));
-                //tasks.Add(Task.Factory.StartNew(() =>
-                //{
-                //    for (int i = 0; i < 1000; i++)
-                //    {
-                //        //SpinLock
-                //        var lockTaken = false;
-                //        try
-                //        {
-                //            spinLock.Enter(ref lockTaken);
-                //            ba.Withdraw(100);
-                //        }
-                //        finally
-                //        {
-                //            if (lockTaken)
-                //                spinLock.Exit();
-                //        }
-                        //ba.Withdraw(100);
-                //    }
-                //}));
+            //ba.Deposit(100);
+            //    }
+            //}));
+            //tasks.Add(Task.Factory.StartNew(() =>
+            //{
+            //    for (int i = 0; i < 1000; i++)
+            //    {
+            //        //SpinLock
+            //        var lockTaken = false;
+            //        try
+            //        {
+            //            spinLock.Enter(ref lockTaken);
+            //            ba.Withdraw(100);
+            //        }
+            //        finally
+            //        {
+            //            if (lockTaken)
+            //                spinLock.Exit();
+            //        }
+            //ba.Withdraw(100);
+            //    }
+            //}));
             //}
-
-            Task.WaitAll(tasks.ToArray());
-            Console.WriteLine($"Final balance of ba is {ba.Balance}");
-            Console.WriteLine($"Final balance of ba2 is {ba2.Balance}");
+            //-----------------------------------------------------------------------------
+            //Task.WaitAll(tasks.ToArray());
+            //Console.WriteLine($"Final balance of ba is {ba.Balance}");
+            //Console.WriteLine($"Final balance of ba2 is {ba2.Balance}");
 
 
             //Lock Recursion example
             //LockRecursion(5);
-
+            //-----------------------------------------------------------------------------
             Console.ReadKey();
         }
         //static SpinLock spinLock = new SpinLock(true);
@@ -182,5 +225,6 @@ namespace CriticalSections
         //        }
         //    }
         //}
+        //-----------------------------------------------------------------------------
     }
 }
