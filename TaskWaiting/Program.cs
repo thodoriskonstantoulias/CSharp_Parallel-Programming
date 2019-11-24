@@ -22,29 +22,51 @@ namespace TaskWaiting
             //Console.ReadKey();
             //cts.Cancel();
             //Waiting fot Tasks
-            var task = new Task(() =>
-            {
-                Console.WriteLine("You have 5 seconds");
-                for (int i = 0; i < 5; i++)
-                {
-                    token.ThrowIfCancellationRequested();
-                    Thread.Sleep(1000);
-                }
-                Console.WriteLine("I am done");
-            },token);
-            task.Start();
+            //var task = new Task(() =>
+            //{
+            //    Console.WriteLine("You have 5 seconds");
+            //    for (int i = 0; i < 5; i++)
+            //    {
+            //        token.ThrowIfCancellationRequested();
+            //        Thread.Sleep(1000);
+            //    }
+            //    Console.WriteLine("I am done");
+            //},token);
+            //task.Start();
 
-            var task2 = Task.Factory.StartNew(() => Thread.Sleep(3000), token);
+            //var task2 = Task.Factory.StartNew(() => Thread.Sleep(3000), token);
 
             //Wait for both tasks to finish
             //Task.WaitAll(task, task2);
 
             //Wait for any of the 2 tasks to finish
-            Task.WaitAny(task, task2);
+            //Task.WaitAny(task, task2);
 
-            Console.WriteLine($"Task task status is {task.Status}");
-            Console.WriteLine($"Task task2 status is {task2.Status}");
+            //Console.WriteLine($"Task task status is {task.Status}");
+            //Console.WriteLine($"Task task2 status is {task2.Status}");
 
+
+            //Exception handling in Tasks
+            var task3 = Task.Factory.StartNew(() =>
+            {
+                throw new InvalidOperationException("Can't do this") { Source = "task3" };
+            });
+            var task4 = Task.Factory.StartNew(() =>
+            {
+                throw new AccessViolationException("Can't access this") { Source = "task4" };
+            });
+            try
+            {
+                Task.WaitAll(task3, task4);
+            }
+            catch (AggregateException ae)
+            {
+                foreach (var e in ae.InnerExceptions)
+                {
+                    Console.WriteLine($"Exception {e.GetType()} from {e.Source}");
+                }
+            }
+            
             Console.WriteLine("Main program ended!");
             Console.ReadKey();
         }
