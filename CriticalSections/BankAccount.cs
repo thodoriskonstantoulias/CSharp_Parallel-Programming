@@ -29,13 +29,23 @@ namespace CriticalSections
         //}
 
         //Introducing Interlocked operations
+        //public void Deposit(int amount)
+        //{
+        //    Interlocked.Add(ref balance, amount);
+        //}
+        //public void Withdraw(int amount)
+        //{
+        //    Interlocked.Add(ref balance, -amount);
+        //}
+
+        //Introducing SpinLock
         public void Deposit(int amount)
         {
-            Interlocked.Add(ref balance, amount);
+            balance += amount;
         }
         public void Withdraw(int amount)
         {
-            Interlocked.Add(ref balance, -amount);
+            balance -= amount;
         }
     }
 }
