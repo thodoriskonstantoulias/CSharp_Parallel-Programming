@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConcurrentCollections
 {
     class Program
     {
+        static Random random = new Random();
         static void Main(string[] args)
         {
             //Introducing Concurrent Dictionary
@@ -24,7 +26,7 @@ namespace ConcurrentCollections
 
             const string toRemove = "Russia";
             string removed;
-            var didRemove = ConcurrentDict.capitals.TryRemove(toRemove,out removed);
+            var didRemove = ConcurrentDict.capitals.TryRemove(toRemove, out removed);
             if (didRemove)
             {
                 Console.WriteLine($"Removed {removed}");
@@ -91,12 +93,54 @@ namespace ConcurrentCollections
             Task.WaitAll(tasks.ToArray());
             // take whatever's last
             int last;
-            if (ConcBag.bag.TryTake(out last)){
+            if (ConcBag.bag.TryTake(out last))
+            {
                 Console.WriteLine($"I got last the value : {last}");
             }
-
+            //-------------------------------------------------------------------------------
+            //Introducing Blocking Collection
+            Console.WriteLine("BLOCKING COLLECTION");
+            Console.WriteLine("-------------");
+            Task.Factory.StartNew(ProduceAndConsume, BlockCollection.cts.Token);
 
             Console.ReadKey();
+            BlockCollection.cts.Cancel();
+        }
+
+        private static void ProduceAndConsume()
+        {
+            var producer = Task.Factory.StartNew(RunProducer);
+            var consumer = Task.Factory.StartNew(RunConsumer);
+            try
+            {
+                Task.WaitAll(new[] { producer, consumer }, BlockCollection.cts.Token);
+            }
+            catch (AggregateException ae)
+            {
+                ae.Handle(e => true);
+            }
+        }
+
+        private static void RunConsumer()
+        {
+            foreach (var item in BlockCollection.block.GetConsumingEnumerable())
+            {
+                BlockCollection.cts.Token.ThrowIfCancellationRequested();
+                Console.WriteLine($"-{item}\t");
+                Thread.Sleep(random.Next(1000));
+            }
+        }
+
+        private static void RunProducer()
+        {
+            while (true)
+            {
+                BlockCollection.cts.Token.ThrowIfCancellationRequested();
+                int i = random.Next(100);
+                BlockCollection.block.Add(i);
+                Console.WriteLine($"+{i}\t");
+                Thread.Sleep(random.Next(1000));
+            }
         }
     }
 }
