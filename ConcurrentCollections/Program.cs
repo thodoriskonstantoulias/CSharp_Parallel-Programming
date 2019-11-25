@@ -49,6 +49,22 @@ namespace ConcurrentCollections
                 Console.WriteLine($"Front element is {result}");
             }
             //-------------------------------------------------------------------------------
+            //Introducing Concurrent Stack
+            Console.WriteLine("STACK");
+            Console.WriteLine("-------------");
+            ConcurrentStac.stack.Push(1);
+            ConcurrentStac.stack.Push(2);
+            ConcurrentStac.stack.Push(3);
+            int result2;
+            if (ConcurrentStac.stack.TryPeek(out result2))
+            {
+                Console.WriteLine($"{result2} is on top");
+            }
+            if (ConcurrentStac.stack.TryPop(out result2))
+            {
+                Console.WriteLine($"{result2} removed from stack");
+            }
+            //-------------------------------------------------------------------------------
 
 
             Console.ReadKey();
