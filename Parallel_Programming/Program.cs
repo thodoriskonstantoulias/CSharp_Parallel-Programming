@@ -5,7 +5,7 @@ namespace Parallel_Programming
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] args) 
         {
             //Conventional route
             //Write('a');
