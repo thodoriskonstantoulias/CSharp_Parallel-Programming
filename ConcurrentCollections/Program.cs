@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConcurrentCollections
@@ -65,6 +66,34 @@ namespace ConcurrentCollections
                 Console.WriteLine($"{result2} removed from stack");
             }
             //-------------------------------------------------------------------------------
+            //Introducing Concurrent Bag
+            Console.WriteLine("BAG");
+            Console.WriteLine("-------------");
+            // concurrent bag provides NO ordering guarantees
+            // keeps a separate list of items for each thread
+            // typically requires no synchronization, unless a thread tries to remove an item
+            // while the thread-local bag is empty (item stealing)
+            var tasks = new List<Task>();
+            for (int i = 0; i < 10; i++)
+            {
+                var i1 = i;
+                tasks.Add(Task.Factory.StartNew(() =>
+                {
+                    ConcBag.bag.Add(i1);
+                    Console.WriteLine($"{Task.CurrentId} has added {i1}");
+                    int result3;
+                    if (ConcBag.bag.TryPeek(out result3))
+                    {
+                        Console.WriteLine($"{Task.CurrentId} has peeked {result3}");
+                    }
+                }));
+            }
+            Task.WaitAll(tasks.ToArray());
+            // take whatever's last
+            int last;
+            if (ConcBag.bag.TryTake(out last)){
+                Console.WriteLine($"I got last the value : {last}");
+            }
 
 
             Console.ReadKey();
