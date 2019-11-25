@@ -8,6 +8,8 @@ namespace ConcurrentCollections
         static void Main(string[] args)
         {
             //Introducing Concurrent Dictionary
+            Console.WriteLine("DICTIONARY");
+            Console.WriteLine("-------------");
             Task.Factory.StartNew(ConcurrentDict.AddParis).Wait();
             ConcurrentDict.AddParis();
 
@@ -30,8 +32,24 @@ namespace ConcurrentCollections
             {
                 Console.WriteLine($"Failed to remove the capital of {toRemove}");
             }
-
             //-------------------------------------------------------------------------------
+
+            //Introducing Concurrent Queue
+            Console.WriteLine("QUEUE");
+            Console.WriteLine("-------------");
+            ConcurrentQue.q.Enqueue(1);
+            ConcurrentQue.q.Enqueue(2);
+            int result;
+            if (ConcurrentQue.q.TryDequeue(out result))
+            {
+                Console.WriteLine($"Removed element {result}");
+            }
+            if (ConcurrentQue.q.TryPeek(out result))
+            {
+                Console.WriteLine($"Front element is {result}");
+            }
+            //-------------------------------------------------------------------------------
+
 
             Console.ReadKey();
         }
