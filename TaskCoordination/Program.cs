@@ -11,6 +11,10 @@ namespace TaskCoordination
             Continuations.ExecuteExample();
             Continuations.ExecuteExample2();
 
+
+            //Introducing child tasks
+            ChildTasks.ExecuteMethod();
+
             Console.ReadKey();
         }
     }
