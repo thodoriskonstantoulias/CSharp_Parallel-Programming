@@ -18,6 +18,11 @@ namespace TaskCoordination
 
             //Introducing barrier
             Barriers.ExecuteMethod();
+            Console.WriteLine("-------------------");
+
+            //Introducing Countdown Event
+            CountDownEvnt.ExecuteMethod();
+            Console.WriteLine("-------------------");
 
             Console.ReadKey();
         }
