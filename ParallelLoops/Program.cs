@@ -33,6 +33,10 @@ namespace ParallelLoops
             ThreadLocalStor.ExecuteMethod();
             Console.WriteLine("---------------------------");
 
+            //Introducing Partinioning (Benchmark comparison)
+            Partitioning.ExecuteMethod();
+            Console.WriteLine("---------------------------");
+
             Console.ReadKey();
         }
     }
