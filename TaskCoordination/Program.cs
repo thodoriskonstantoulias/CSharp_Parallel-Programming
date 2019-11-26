@@ -10,10 +10,14 @@ namespace TaskCoordination
             //Introducing Continuations
             Continuations.ExecuteExample();
             Continuations.ExecuteExample2();
-
+            Console.WriteLine("-------------------");
 
             //Introducing child tasks
             ChildTasks.ExecuteMethod();
+            Console.WriteLine("-------------------");
+
+            //Introducing barrier
+            Barriers.ExecuteMethod();
 
             Console.ReadKey();
         }
