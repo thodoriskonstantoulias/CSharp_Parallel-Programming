@@ -24,6 +24,11 @@ namespace TaskCoordination
             CountDownEvnt.ExecuteMethod();
             Console.WriteLine("-------------------");
 
+            //Introducing Manual and Auto reset events 
+            ResetEvents.ExecuteMethod1();
+            ResetEvents.ExecuteMethod2();
+            Console.WriteLine("-------------------");
+
             Console.ReadKey();
         }
     }
