@@ -29,6 +29,10 @@ namespace TaskCoordination
             ResetEvents.ExecuteMethod2();
             Console.WriteLine("-------------------");
 
+            //Introducing Semaphore Slim
+            Semaphore.ExecuteMethod();
+            Console.WriteLine("-------------------");
+
             Console.ReadKey();
         }
     }
