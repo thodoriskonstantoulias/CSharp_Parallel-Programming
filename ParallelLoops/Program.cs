@@ -8,6 +8,27 @@ namespace ParallelLoops
         {
             //Introducing Parallel Programming, Invoke, For, Foreach
             ParallelInvoke.ExecuteMethod();
+            Console.WriteLine("---------------------------");
+
+            //Introducing Parallel Cancellation
+            try
+            {
+                ParallelCancel.ExecuteMethod();
+            }
+            catch (OperationCanceledException oe)
+            {
+                Console.WriteLine(oe.Message);
+            }
+            catch (AggregateException ae)
+            {
+                ae.Handle(e =>
+                {
+                    Console.WriteLine(e.Message);
+                    return true;
+                });
+            }
+            Console.WriteLine("---------------------------");
+
 
             Console.ReadKey();
         }
