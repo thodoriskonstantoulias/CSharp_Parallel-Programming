@@ -10,7 +10,7 @@ namespace ParallelLoops
             ParallelInvoke.ExecuteMethod();
             Console.WriteLine("---------------------------");
 
-            //Introducing Parallel Cancellation
+            //Introducing Parallel Cancellation 
             try
             {
                 ParallelCancel.ExecuteMethod();
@@ -29,6 +29,9 @@ namespace ParallelLoops
             }
             Console.WriteLine("---------------------------");
 
+            //Introducing Thread Local Storage
+            ThreadLocalStor.ExecuteMethod();
+            Console.WriteLine("---------------------------");
 
             Console.ReadKey();
         }
