@@ -18,6 +18,10 @@ namespace ParallelLINQ
             MergeParLINQ.ExecuteMethod();
             Console.WriteLine("-------------------------");
 
+            //Introducing Custom aggregation
+            CustomAggregation.ExecuteMethod();
+            Console.WriteLine("-------------------------");
+
             Console.ReadKey();
         }
     }
