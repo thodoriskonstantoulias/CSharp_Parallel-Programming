@@ -8,6 +8,12 @@ namespace ParallelLINQ
         {
             //Introducing AsParallel and ParallelQuery
             ParalQuery.ExecuteMethod();
+            Console.WriteLine("-------------------------");
+
+            //Introducing AsParallel and ParallelQuery
+            CancelLINQ.ExecuteMethod();
+            Console.WriteLine("-------------------------");
+
 
             Console.ReadKey();
         }
