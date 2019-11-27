@@ -14,6 +14,9 @@ namespace ParallelLINQ
             CancelLINQ.ExecuteMethod();
             Console.WriteLine("-------------------------");
 
+            //Introducing Merge options
+            MergeParLINQ.ExecuteMethod();
+            Console.WriteLine("-------------------------");
 
             Console.ReadKey();
         }
